@@ -32,6 +32,8 @@ public class OfferEntity {
     private int mileAge;
     @Column(nullable = false)
     private BigDecimal price;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TransmissionEnum transmission;
@@ -88,6 +90,15 @@ public class OfferEntity {
         return this;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public OfferEntity setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
     public TransmissionEnum getTransmission() {
         return transmission;
     }
@@ -132,6 +143,7 @@ public class OfferEntity {
                 ", imageURL='" + imageURL + '\'' +
                 ", mileAge=" + mileAge +
                 ", price=" + price +
+                ", description='" + description + '\'' +
                 ", transmission=" + transmission +
                 ", year=" + year +
                 ", model=" + model +
