@@ -13,6 +13,17 @@ public class CurrentUser {
     private String name;
     private boolean loggedIn;
 
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public CurrentUser setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
