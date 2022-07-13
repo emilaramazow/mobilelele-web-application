@@ -18,7 +18,7 @@ public class MailConfig {
             @Value("${mail.host}") String mailHost,
             @Value("${mail.port}") Integer mailPort,
             @Value("${mail.username}") String mailUsername,
-            @Value("${mail.password}") String mailPassword ) {
+            @Value("${mail.password}") String mailPassword) {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setHost(mailHost);
         javaMailSender.setPort(mailPort);
