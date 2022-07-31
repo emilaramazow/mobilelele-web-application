@@ -6,6 +6,7 @@ import bg.softuni.mobilele.model.user.MobileleUserDetails;
 import bg.softuni.mobilele.service.BrandService;
 import bg.softuni.mobilele.service.OfferService;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Controller
 public class OfferController {
@@ -33,7 +35,11 @@ public class OfferController {
     }
 
     @GetMapping("/offers/all")
-    public String allOffers(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+    public String allOffers(Model model, @PageableDefault(
+            sort = "price",
+            direction = Sort.Direction.ASC,
+            page = 0,
+            size = 5) Pageable pageable) {
 
         model.addAttribute("offers", offerService.getAllOffers(pageable));
         return "offers";
@@ -94,11 +100,14 @@ public class OfferController {
         return "offer-search";
     }
 
-    //TODO: Имаш бонус работещо DTO - CardListingDTO със настроен mapper за offer catalogue
 
     @ModelAttribute(name = "searchOfferModel")
     private SearchOfferDTO initSearchModel() {
         return new SearchOfferDTO();
     }
 
+    @GetMapping("/offers/{id}/details")
+    public String getOfferDetail(@PathVariable("id") UUID id) {
+        return "details";
+    }
 }
