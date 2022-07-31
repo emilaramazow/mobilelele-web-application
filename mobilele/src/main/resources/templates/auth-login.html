@@ -26,6 +26,7 @@
             <label for="username" class="text-white font-weight-bold">Email</label>
             <input
                     id="username"
+                    th:value="${userName}"
                     name="username"
                     type="text"
                     min="2"
@@ -44,10 +45,11 @@
                     class="form-control"
                    placeholder="Password"/>
 
-            <p class="invalid-feedback errors alert alert-danger">
-                Invalid username or password.
-            </p>
         </div>
+
+        <p th:if="${bad_credentials}" class="errors alert alert-danger">
+            Invalid username or password.
+        </p>
 
         <div class="row">
             <div class="col col-md-4">
