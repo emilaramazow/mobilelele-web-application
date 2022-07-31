@@ -7,79 +7,86 @@ import java.util.Collection;
 
 public class MobileleUserDetails implements UserDetails {
 
-  private final String password;
-  private final String username;
-  private final String firstName;
-  private final String lastName;
-  private final Collection<GrantedAuthority> authorities;
+    private final Long id;
+    private final String password;
+    private final String username;
+    private final String firstName;
+    private final String lastName;
+    private final Collection<GrantedAuthority> authorities;
 
-  public MobileleUserDetails(String password,
-                             String username,
-                             String firstName,
-                             String lastName,
-                             Collection<GrantedAuthority> authorities) {
-    this.password = password;
-    this.username = username;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.authorities = authorities;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public String getFullName() {
-    StringBuilder fullName = new StringBuilder();
-    if (getFirstName() != null) {
-      fullName.append(getFirstName());
-    }
-    if (getLastName() != null) {
-      if (!fullName.isEmpty()) {
-        fullName.append(" ");
-      }
-      fullName.append(getLastName());
+    public MobileleUserDetails(Long id,
+                               String password,
+                               String username,
+                               String firstName,
+                               String lastName,
+                               Collection<GrantedAuthority> authorities) {
+        this.id = id;
+        this.password = password;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.authorities = authorities;
     }
 
-    return fullName.toString();
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    return authorities;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  @Override
-  public String getPassword() {
-    return password;
-  }
+    public String getFullName() {
+        StringBuilder fullName = new StringBuilder();
+        if (getFirstName() != null) {
+            fullName.append(getFirstName());
+        }
+        if (getLastName() != null) {
+            if (!fullName.isEmpty()) {
+                fullName.append(" ");
+            }
+            fullName.append(getLastName());
+        }
 
-  @Override
-  public String getUsername() {
-    return username;
-  }
+        return fullName.toString();
+    }
 
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

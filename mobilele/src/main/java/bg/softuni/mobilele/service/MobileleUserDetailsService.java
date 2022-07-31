@@ -12,39 +12,40 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class MobileleUserDetailsService implements UserDetailsService {
 
-  private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-  public MobileleUserDetailsService(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
+    public MobileleUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-  @Override
-  public UserDetails loadUserByUsername(String username)
-      throws UsernameNotFoundException {
-    return userRepository.
-        findByEmail(username).
-        map(this::map).
-        orElseThrow(() -> new UsernameNotFoundException("User with email " + username + " not found!"));
-  }
+    @Override
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+        return userRepository.
+                findByEmail(username).
+                map(this::map).
+                orElseThrow(() -> new UsernameNotFoundException("User with email " + username + " not found!"));
+    }
 
-  private UserDetails map(UserEntity userEntity) {
+    private UserDetails map(UserEntity userEntity) {
 
-    return new MobileleUserDetails(
-        userEntity.getPassword(),
-        userEntity.getEmail(),
-        userEntity.getFirstName(),
-        userEntity.getLastName(),
-        userEntity.
-            getUserRoles().
-            stream().
-            map(this::map).
-            toList()
-    );
-  }
+        return new MobileleUserDetails(
+                userEntity.getId(),
+                userEntity.getPassword(),
+                userEntity.getEmail(),
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.
+                        getUserRoles().
+                        stream().
+                        map(this::map).
+                        toList()
+        );
+    }
 
-  private GrantedAuthority map(UserRoleEntity userRole) {
-    return new SimpleGrantedAuthority("ROLE_" +
-        userRole.
-            getUserRole().name());
-  }
+    private GrantedAuthority map(UserRoleEntity userRole) {
+        return new SimpleGrantedAuthority("ROLE_" +
+                userRole.
+                        getUserRole().name());
+    }
 }
